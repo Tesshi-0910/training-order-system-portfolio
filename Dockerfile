@@ -1,8 +1,8 @@
 # ---- Build stage ----
-FROM gradle:8.11-jdk21 AS build
+FROM eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /app
-COPY --chown=gradle:gradle . .
-RUN gradle bootJar --no-daemon -x test
+COPY . .
+RUN chmod +x gradlew && ./gradlew bootJar --no-daemon -x test
 
 # ---- Run stage ----
 FROM eclipse-temurin:21-jre-jammy
