@@ -1,0 +1,33 @@
+databases:
+  - name: training-order-db
+    plan: free
+    databaseName: training_order_db
+    user: training_order_user
+
+services:
+  - type: web
+    name: training-order-system
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: training-order-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: training-order-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: training-order-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: training-order-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: training-order-db
+          property: password
